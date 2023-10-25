@@ -3,3 +3,6 @@
 .DS_STORE
 
 .env
+
+app
+menu-ai.http

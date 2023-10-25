@@ -1,13 +1,13 @@
 package main
 
 import (
-	"context"
+	"fmt"
 	"log"
 	"menu-ai/configs"
+	"menu-ai/internal/connectors/openai"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/sashabaranov/go-openai"
 )
 
 type MenuResponse struct {
@@ -20,26 +20,15 @@ type MenuRequest struct {
 
 func getOpenAiCompletion(prompt string) (string, error) {
 	conf := configs.Load()
-	client := openai.NewClient(conf.OpenAiApiKey)
-	resp, err := client.CreateChatCompletion(
-		context.Background(),
-		openai.ChatCompletionRequest{
-			Model: openai.GPT3Dot5Turbo,
-			Messages: []openai.ChatCompletionMessage{
-				{
-					Role:    openai.ChatMessageRoleUser,
-					Content: prompt,
-				},
-			},
-		},
-	)
-
+	log.Printf("prompt: %s \n", prompt)
+	openAIClient := openai.NewClient(conf.OpenAiApiKey)
+	content, err := openAIClient.GetCompletion(prompt)
 	if err != nil {
 		log.Printf("getOpenAiCompletion: %v \n", err.Error())
 		return "", err
 	}
-
-	return resp.Choices[0].Message.Content, nil
+	fmt.Printf("content: %v", content)
+	return content, nil
 }
 
 func generateMenuHandler(c *gin.Context) {

@@ -1,15 +1,101 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu AI</title>
+    <title>Générateur de Menu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"/>
+    <style>
+        .container {
+            padding: 20px;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+        }
+
+        .columns {
+            flex-wrap: wrap;
+        }
+
+        .column {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Menu AI</h1>
-    <button id="generate-btn">Generate</button>
+<div class="container">
+    <h1 class="title">Menu AI Generator</h1>
 
-    <div id="output"></div>
+    <div class="columns is-mobile">
+        <div class="column is-half">
+            <div class="form-container">
+                <form id="menu-generator-form">
+                    <div class="field">
+                        <label for="max-calories" class="label">Calories max par jour:</label>
+                        <div class="control">
+                            <input type="number" id="max-calories" name="max-calories" required class="input"
+                                   placeholder="Calories"/>
+                        </div>
+                    </div>
 
-    <script src="script.js"></script>
+                    <div class="field">
+                        <label for="max-carbs" class="label">Glucides max par jour (%):</label>
+                        <div class="control">
+                            <input type="number" id="max-carbs" name="max-carbs" required class="input"
+                                   placeholder="Glucides (%)"/>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="max-proteins" class="label">Protéines max par jour (%):</label>
+                        <div class="control">
+                            <input type="number" id="max-proteins" name="max-proteins" required class="input"
+                                   placeholder="Protéines (%)"/>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="max-fats" class="label">Lipides max par jour (%):</label>
+                        <div class="control">
+                            <input type="number" id="max-fats" name=max-fats" required class="input"
+                                   placeholder="Lipides (%)"/>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="allergies" class="label">Allergies:</label>
+                        <div class="control">
+                            <div class="select is-multiple">
+                                <select id="allergies" name="allergies" multiple>
+                                    <option value="lait">Lait</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button id="generate-btn" type="button" class="button is-primary">Générer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="column is-half">
+            <div id="loader" style="display: none" class="loader is-size-4"></div>
+            <div class="card" id="menu-card">
+                <div class="card-content" style="max-height: 70vh; overflow-y: auto;">
+                    <div class="content" id="menu-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
+
 </html>
